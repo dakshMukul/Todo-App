@@ -1,35 +1,41 @@
-const taskContainer = document.querySelector(".task-list-container");
-
-const taskList = [];
+const inputBox = document.getElementById("input-box");
+const listContainer = document.getElementById("list-container");
 
 function addTask() {
-  const taskInput = document.getElementById("task-input").value;
-  taskList.push(taskInput);
-  console.log(taskList);
-
-  const newNode = createNewNode(taskInput);
-  taskContainer.appendChild(newNode);
+  if (inputBox.value === "") {
+    alert("You must write something!");
+  } else {
+    let li = document.createElement("li");
+    li.innerHTML = inputBox.value;
+    let span = document.createElement("span");
+    span.innerHTML = "\u00d7";
+    li.appendChild(span);
+    listContainer.appendChild(li);
+  }
+  inputBox.value = "";
+  saveData();
 }
 
-function createNewNode(taskName) {
-  var newNode = document.createElement("div");
-  newNode.classList.add("newNode");
+listContainer.addEventListener(
+  "click",
+  function (e) {
+    if (e.target.tagName === "LI") {
+      e.target.classList.toggle("checked");
+      saveData();
+    } else if (e.target.tagName === "SPAN") {
+      e.target.parentElement.remove();
+      saveData();
+    }
+  },
+  false
+);
 
-  var tickButton = document.createElement("i");
-  tickButton.classList.add("fa-regular");
-  const circleTicl = tickButton.classList.add("fa-circle");
-
-  var taskTitle = document.createElement("p");
-  taskTitle.classList.add("taskTitle");
-  taskTitle.textContent = taskName;
-
-  var crossIcon = document.createElement("i");
-  crossIcon.classList.add("crossTick");
-  crossIcon.classList.add("fa-solid");
-  crossIcon.classList.add("fa-xmark");
-  newNode.appendChild(tickButton);
-  newNode.appendChild(taskTitle);
-  newNode.appendChild(crossIcon);
-
-  return newNode;
+function saveData() {
+  localStorage.setItem("data", listContainer.innerHTML);
 }
+
+function showTask() {
+  listContainer.innerHTML = localStorage.getItem("data");
+}
+
+showTask();
