@@ -30,12 +30,18 @@ main {
   padding: 32px 48px;
   box-shadow: 0 0 8px 0px rgba(0, 0, 0, 0.1);
 }
-
+.subtitle{
+  position: relative;
+}
 .sun-icon {
   vertical-align: middle;
   margin-left: 16px;
 }
-
+.sun-inner{
+  position: absolute;
+  left: 101px;
+  top: 20px;
+}
 .progress-label {
   font-size: 14px;
   color: #858585;
@@ -82,12 +88,13 @@ main {
 .goal-container {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 17px;
-  height: 82px;
+  height: 80px;
   display: flex;
   align-items: center;
   padding: 0 22px;
   background-color: #ffffff;
-  margin-bottom: 42px;
+  margin-bottom: 30px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
 }
 
 .custom-checkbox {
@@ -175,4 +182,20 @@ main {
   .progress-bar {
     height: 24px;
   }
+}
+
+@keyframes rotateSun {
+
+  from{
+    transform: rotate(0deg);
+  }
+
+  to{
+    transform: rotate(360deg);
+  }
+  
+}
+
+.sun-outter{
+  animation: rotateSun 10s linear infinite;
 }
